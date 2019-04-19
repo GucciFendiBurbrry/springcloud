@@ -14,8 +14,8 @@ spring:
   datasource:
     max-idle: 10
     min-idle: 5
-    username: root 
-    password: yzm123
+    username: ***** 
+    password: *****
     initial-size: 5
     driver-class-name: com.mysql.jdbc.Driver
     max-wait: 10000
