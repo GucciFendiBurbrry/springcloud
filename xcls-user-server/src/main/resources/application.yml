@@ -1,0 +1,25 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+server:
+    port: 8765
+    tomcat:
+        uri-encoding: UTF-8
+    session:
+        timeout: 10
+spring:
+  application:
+    name: user-service
+  datasource:
+    max-idle: 10
+    min-idle: 5
+    username: root 
+    password: yzm123
+    initial-size: 5
+    driver-class-name: com.mysql.jdbc.Driver
+    max-wait: 10000
+    url: jdbc:mysql://127.0.0.1:3306/cls
+mybatis:
+  typeAliasesPackage: com.lgp.SpringBoot.bean
+  mapperLocations: classpath:mapper/*.xml

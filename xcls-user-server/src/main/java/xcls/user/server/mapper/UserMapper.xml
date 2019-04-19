@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xcls.user.server.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="xcls.user.server.domain.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="biz_system" jdbcType="VARCHAR" property="bizSystem" />
+    <result column="code" jdbcType="INTEGER" property="code" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="regfrom" jdbcType="VARCHAR" property="regfrom" />
+    <result column="is_tourist" jdbcType="INTEGER" property="isTourist" />
+    <result column="team_member_count" jdbcType="INTEGER" property="teamMemberCount" />
+    <result column="down_member_count" jdbcType="INTEGER" property="downMemberCount" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="safe_password" jdbcType="VARCHAR" property="safePassword" />
+    <result column="have_safe_password" jdbcType="INTEGER" property="haveSafePassword" />
+    <result column="have_safe_question" jdbcType="INTEGER" property="haveSafeQuestion" />
+    <result column="nick" jdbcType="VARCHAR" property="nick" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="true_name" jdbcType="VARCHAR" property="trueName" />
+    <result column="identityid" jdbcType="VARCHAR" property="identityid" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="head_img" jdbcType="VARCHAR" property="headImg" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="first_recharge_time" jdbcType="TIMESTAMP" property="firstRechargeTime" />
+    <result column="first_recharge_order_id" jdbcType="BIGINT" property="firstRechargeOrderId" />
+    <result column="login_lock" jdbcType="INTEGER" property="loginLock" />
+    <result column="withdraw_lock" jdbcType="INTEGER" property="withdrawLock" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="daili_level" jdbcType="VARCHAR" property="dailiLevel" />
+    <result column="vip_level" jdbcType="VARCHAR" property="vipLevel" />
+    <result column="star_level" jdbcType="INTEGER" property="starLevel" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="logip" jdbcType="VARCHAR" property="logip" />
+    <result column="last_mobile_login" jdbcType="VARCHAR" property="lastMobileLogin" />
+    <result column="login_times" jdbcType="INTEGER" property="loginTimes" />
+    <result column="last_logout_time" jdbcType="TIMESTAMP" property="lastLogoutTime" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="ssc_rebate" jdbcType="DECIMAL" property="sscRebate" />
+    <result column="ffc_rebate" jdbcType="DECIMAL" property="ffcRebate" />
+    <result column="syxw_rebate" jdbcType="DECIMAL" property="syxwRebate" />
+    <result column="ks_rebate" jdbcType="DECIMAL" property="ksRebate" />
+    <result column="pk10_rebate" jdbcType="DECIMAL" property="pk10Rebate" />
+    <result column="dpc_rebate" jdbcType="DECIMAL" property="dpcRebate" />
+    <result column="tb_rebate" jdbcType="DECIMAL" property="tbRebate" />
+    <result column="klsf_rebate" jdbcType="DECIMAL" property="klsfRebate" />
+    <result column="lhc_rebate" jdbcType="DECIMAL" property="lhcRebate" />
+    <result column="point" jdbcType="DECIMAL" property="point" />
+    <result column="bonus_scale" jdbcType="DECIMAL" property="bonusScale" />
+    <result column="bonus_state" jdbcType="INTEGER" property="bonusState" />
+    <result column="salary_state" jdbcType="INTEGER" property="salaryState" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="can_withdraw_money" jdbcType="DECIMAL" property="canWithdrawMoney" />
+    <result column="ice_money" jdbcType="DECIMAL" property="iceMoney" />
+    <result column="total_can_withdraw_money" jdbcType="DECIMAL" property="totalCanWithdrawMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, biz_system, code, user_name, regfrom, is_tourist, team_member_count, down_member_count, 
+    password, safe_password, have_safe_password, have_safe_question, nick, phone, true_name, 
+    identityid, birthday, sex, qq, head_img, province, city, address, addtime, first_recharge_time, 
+    first_recharge_order_id, login_lock, withdraw_lock, state, daili_level, vip_level, 
+    star_level, level_name, email, logip, last_mobile_login, login_times, last_logout_time, 
+    last_login_time, ssc_rebate, ffc_rebate, syxw_rebate, ks_rebate, pk10_rebate, dpc_rebate, 
+    tb_rebate, klsf_rebate, lhc_rebate, point, bonus_scale, bonus_state, salary_state, 
+    version, money, can_withdraw_money, ice_money, total_can_withdraw_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kr_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from kr_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="xcls.user.server.domain.User">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into kr_user (biz_system, code, user_name, 
+      regfrom, is_tourist, team_member_count, 
+      down_member_count, password, safe_password, 
+      have_safe_password, have_safe_question, nick, 
+      phone, true_name, identityid, 
+      birthday, sex, qq, 
+      head_img, province, city, 
+      address, addtime, first_recharge_time, 
+      first_recharge_order_id, login_lock, withdraw_lock, 
+      state, daili_level, vip_level, 
+      star_level, level_name, email, 
+      logip, last_mobile_login, login_times, 
+      last_logout_time, last_login_time, ssc_rebate, 
+      ffc_rebate, syxw_rebate, ks_rebate, 
+      pk10_rebate, dpc_rebate, tb_rebate, 
+      klsf_rebate, lhc_rebate, point, 
+      bonus_scale, bonus_state, salary_state, 
+      version, money, can_withdraw_money, 
+      ice_money, total_can_withdraw_money)
+    values (#{bizSystem,jdbcType=VARCHAR}, #{code,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{regfrom,jdbcType=VARCHAR}, #{isTourist,jdbcType=INTEGER}, #{teamMemberCount,jdbcType=INTEGER}, 
+      #{downMemberCount,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{safePassword,jdbcType=VARCHAR}, 
+      #{haveSafePassword,jdbcType=INTEGER}, #{haveSafeQuestion,jdbcType=INTEGER}, #{nick,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, #{identityid,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{qq,jdbcType=VARCHAR}, 
+      #{headImg,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{firstRechargeTime,jdbcType=TIMESTAMP}, 
+      #{firstRechargeOrderId,jdbcType=BIGINT}, #{loginLock,jdbcType=INTEGER}, #{withdrawLock,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{dailiLevel,jdbcType=VARCHAR}, #{vipLevel,jdbcType=VARCHAR}, 
+      #{starLevel,jdbcType=INTEGER}, #{levelName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{logip,jdbcType=VARCHAR}, #{lastMobileLogin,jdbcType=VARCHAR}, #{loginTimes,jdbcType=INTEGER}, 
+      #{lastLogoutTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{sscRebate,jdbcType=DECIMAL}, 
+      #{ffcRebate,jdbcType=DECIMAL}, #{syxwRebate,jdbcType=DECIMAL}, #{ksRebate,jdbcType=DECIMAL}, 
+      #{pk10Rebate,jdbcType=DECIMAL}, #{dpcRebate,jdbcType=DECIMAL}, #{tbRebate,jdbcType=DECIMAL}, 
+      #{klsfRebate,jdbcType=DECIMAL}, #{lhcRebate,jdbcType=DECIMAL}, #{point,jdbcType=DECIMAL}, 
+      #{bonusScale,jdbcType=DECIMAL}, #{bonusState,jdbcType=INTEGER}, #{salaryState,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER}, #{money,jdbcType=DECIMAL}, #{canWithdrawMoney,jdbcType=DECIMAL}, 
+      #{iceMoney,jdbcType=DECIMAL}, #{totalCanWithdrawMoney,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xcls.user.server.domain.User">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into kr_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bizSystem != null">
+        biz_system,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="regfrom != null">
+        regfrom,
+      </if>
+      <if test="isTourist != null">
+        is_tourist,
+      </if>
+      <if test="teamMemberCount != null">
+        team_member_count,
+      </if>
+      <if test="downMemberCount != null">
+        down_member_count,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="safePassword != null">
+        safe_password,
+      </if>
+      <if test="haveSafePassword != null">
+        have_safe_password,
+      </if>
+      <if test="haveSafeQuestion != null">
+        have_safe_question,
+      </if>
+      <if test="nick != null">
+        nick,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="trueName != null">
+        true_name,
+      </if>
+      <if test="identityid != null">
+        identityid,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="headImg != null">
+        head_img,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="firstRechargeTime != null">
+        first_recharge_time,
+      </if>
+      <if test="firstRechargeOrderId != null">
+        first_recharge_order_id,
+      </if>
+      <if test="loginLock != null">
+        login_lock,
+      </if>
+      <if test="withdrawLock != null">
+        withdraw_lock,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="dailiLevel != null">
+        daili_level,
+      </if>
+      <if test="vipLevel != null">
+        vip_level,
+      </if>
+      <if test="starLevel != null">
+        star_level,
+      </if>
+      <if test="levelName != null">
+        level_name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="logip != null">
+        logip,
+      </if>
+      <if test="lastMobileLogin != null">
+        last_mobile_login,
+      </if>
+      <if test="loginTimes != null">
+        login_times,
+      </if>
+      <if test="lastLogoutTime != null">
+        last_logout_time,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="sscRebate != null">
+        ssc_rebate,
+      </if>
+      <if test="ffcRebate != null">
+        ffc_rebate,
+      </if>
+      <if test="syxwRebate != null">
+        syxw_rebate,
+      </if>
+      <if test="ksRebate != null">
+        ks_rebate,
+      </if>
+      <if test="pk10Rebate != null">
+        pk10_rebate,
+      </if>
+      <if test="dpcRebate != null">
+        dpc_rebate,
+      </if>
+      <if test="tbRebate != null">
+        tb_rebate,
+      </if>
+      <if test="klsfRebate != null">
+        klsf_rebate,
+      </if>
+      <if test="lhcRebate != null">
+        lhc_rebate,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="bonusScale != null">
+        bonus_scale,
+      </if>
+      <if test="bonusState != null">
+        bonus_state,
+      </if>
+      <if test="salaryState != null">
+        salary_state,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="canWithdrawMoney != null">
+        can_withdraw_money,
+      </if>
+      <if test="iceMoney != null">
+        ice_money,
+      </if>
+      <if test="totalCanWithdrawMoney != null">
+        total_can_withdraw_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bizSystem != null">
+        #{bizSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="regfrom != null">
+        #{regfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="isTourist != null">
+        #{isTourist,jdbcType=INTEGER},
+      </if>
+      <if test="teamMemberCount != null">
+        #{teamMemberCount,jdbcType=INTEGER},
+      </if>
+      <if test="downMemberCount != null">
+        #{downMemberCount,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="safePassword != null">
+        #{safePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="haveSafePassword != null">
+        #{haveSafePassword,jdbcType=INTEGER},
+      </if>
+      <if test="haveSafeQuestion != null">
+        #{haveSafeQuestion,jdbcType=INTEGER},
+      </if>
+      <if test="nick != null">
+        #{nick,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="trueName != null">
+        #{trueName,jdbcType=VARCHAR},
+      </if>
+      <if test="identityid != null">
+        #{identityid,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null">
+        #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstRechargeTime != null">
+        #{firstRechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstRechargeOrderId != null">
+        #{firstRechargeOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="loginLock != null">
+        #{loginLock,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawLock != null">
+        #{withdrawLock,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="dailiLevel != null">
+        #{dailiLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="vipLevel != null">
+        #{vipLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="starLevel != null">
+        #{starLevel,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="logip != null">
+        #{logip,jdbcType=VARCHAR},
+      </if>
+      <if test="lastMobileLogin != null">
+        #{lastMobileLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTimes != null">
+        #{loginTimes,jdbcType=INTEGER},
+      </if>
+      <if test="lastLogoutTime != null">
+        #{lastLogoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sscRebate != null">
+        #{sscRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="ffcRebate != null">
+        #{ffcRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="syxwRebate != null">
+        #{syxwRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="ksRebate != null">
+        #{ksRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="pk10Rebate != null">
+        #{pk10Rebate,jdbcType=DECIMAL},
+      </if>
+      <if test="dpcRebate != null">
+        #{dpcRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="tbRebate != null">
+        #{tbRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="klsfRebate != null">
+        #{klsfRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="lhcRebate != null">
+        #{lhcRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusScale != null">
+        #{bonusScale,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusState != null">
+        #{bonusState,jdbcType=INTEGER},
+      </if>
+      <if test="salaryState != null">
+        #{salaryState,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="canWithdrawMoney != null">
+        #{canWithdrawMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="iceMoney != null">
+        #{iceMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCanWithdrawMoney != null">
+        #{totalCanWithdrawMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xcls.user.server.domain.User">
+    update kr_user
+    <set>
+      <if test="bizSystem != null">
+        biz_system = #{bizSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="regfrom != null">
+        regfrom = #{regfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="isTourist != null">
+        is_tourist = #{isTourist,jdbcType=INTEGER},
+      </if>
+      <if test="teamMemberCount != null">
+        team_member_count = #{teamMemberCount,jdbcType=INTEGER},
+      </if>
+      <if test="downMemberCount != null">
+        down_member_count = #{downMemberCount,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="safePassword != null">
+        safe_password = #{safePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="haveSafePassword != null">
+        have_safe_password = #{haveSafePassword,jdbcType=INTEGER},
+      </if>
+      <if test="haveSafeQuestion != null">
+        have_safe_question = #{haveSafeQuestion,jdbcType=INTEGER},
+      </if>
+      <if test="nick != null">
+        nick = #{nick,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="trueName != null">
+        true_name = #{trueName,jdbcType=VARCHAR},
+      </if>
+      <if test="identityid != null">
+        identityid = #{identityid,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null">
+        head_img = #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstRechargeTime != null">
+        first_recharge_time = #{firstRechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstRechargeOrderId != null">
+        first_recharge_order_id = #{firstRechargeOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="loginLock != null">
+        login_lock = #{loginLock,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawLock != null">
+        withdraw_lock = #{withdrawLock,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="dailiLevel != null">
+        daili_level = #{dailiLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="vipLevel != null">
+        vip_level = #{vipLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="starLevel != null">
+        star_level = #{starLevel,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="logip != null">
+        logip = #{logip,jdbcType=VARCHAR},
+      </if>
+      <if test="lastMobileLogin != null">
+        last_mobile_login = #{lastMobileLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTimes != null">
+        login_times = #{loginTimes,jdbcType=INTEGER},
+      </if>
+      <if test="lastLogoutTime != null">
+        last_logout_time = #{lastLogoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sscRebate != null">
+        ssc_rebate = #{sscRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="ffcRebate != null">
+        ffc_rebate = #{ffcRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="syxwRebate != null">
+        syxw_rebate = #{syxwRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="ksRebate != null">
+        ks_rebate = #{ksRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="pk10Rebate != null">
+        pk10_rebate = #{pk10Rebate,jdbcType=DECIMAL},
+      </if>
+      <if test="dpcRebate != null">
+        dpc_rebate = #{dpcRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="tbRebate != null">
+        tb_rebate = #{tbRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="klsfRebate != null">
+        klsf_rebate = #{klsfRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="lhcRebate != null">
+        lhc_rebate = #{lhcRebate,jdbcType=DECIMAL},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusScale != null">
+        bonus_scale = #{bonusScale,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusState != null">
+        bonus_state = #{bonusState,jdbcType=INTEGER},
+      </if>
+      <if test="salaryState != null">
+        salary_state = #{salaryState,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="canWithdrawMoney != null">
+        can_withdraw_money = #{canWithdrawMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="iceMoney != null">
+        ice_money = #{iceMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCanWithdrawMoney != null">
+        total_can_withdraw_money = #{totalCanWithdrawMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xcls.user.server.domain.User">
+    update kr_user
+    set biz_system = #{bizSystem,jdbcType=VARCHAR},
+      code = #{code,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      regfrom = #{regfrom,jdbcType=VARCHAR},
+      is_tourist = #{isTourist,jdbcType=INTEGER},
+      team_member_count = #{teamMemberCount,jdbcType=INTEGER},
+      down_member_count = #{downMemberCount,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      safe_password = #{safePassword,jdbcType=VARCHAR},
+      have_safe_password = #{haveSafePassword,jdbcType=INTEGER},
+      have_safe_question = #{haveSafeQuestion,jdbcType=INTEGER},
+      nick = #{nick,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      true_name = #{trueName,jdbcType=VARCHAR},
+      identityid = #{identityid,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      qq = #{qq,jdbcType=VARCHAR},
+      head_img = #{headImg,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      first_recharge_time = #{firstRechargeTime,jdbcType=TIMESTAMP},
+      first_recharge_order_id = #{firstRechargeOrderId,jdbcType=BIGINT},
+      login_lock = #{loginLock,jdbcType=INTEGER},
+      withdraw_lock = #{withdrawLock,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      daili_level = #{dailiLevel,jdbcType=VARCHAR},
+      vip_level = #{vipLevel,jdbcType=VARCHAR},
+      star_level = #{starLevel,jdbcType=INTEGER},
+      level_name = #{levelName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      logip = #{logip,jdbcType=VARCHAR},
+      last_mobile_login = #{lastMobileLogin,jdbcType=VARCHAR},
+      login_times = #{loginTimes,jdbcType=INTEGER},
+      last_logout_time = #{lastLogoutTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      ssc_rebate = #{sscRebate,jdbcType=DECIMAL},
+      ffc_rebate = #{ffcRebate,jdbcType=DECIMAL},
+      syxw_rebate = #{syxwRebate,jdbcType=DECIMAL},
+      ks_rebate = #{ksRebate,jdbcType=DECIMAL},
+      pk10_rebate = #{pk10Rebate,jdbcType=DECIMAL},
+      dpc_rebate = #{dpcRebate,jdbcType=DECIMAL},
+      tb_rebate = #{tbRebate,jdbcType=DECIMAL},
+      klsf_rebate = #{klsfRebate,jdbcType=DECIMAL},
+      lhc_rebate = #{lhcRebate,jdbcType=DECIMAL},
+      point = #{point,jdbcType=DECIMAL},
+      bonus_scale = #{bonusScale,jdbcType=DECIMAL},
+      bonus_state = #{bonusState,jdbcType=INTEGER},
+      salary_state = #{salaryState,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      money = #{money,jdbcType=DECIMAL},
+      can_withdraw_money = #{canWithdrawMoney,jdbcType=DECIMAL},
+      ice_money = #{iceMoney,jdbcType=DECIMAL},
+      total_can_withdraw_money = #{totalCanWithdrawMoney,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
